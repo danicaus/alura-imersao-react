@@ -21,6 +21,28 @@ function ProfileSidebar(props) {
   )
 }
 
+function ProfileRelationsBox(props){
+  return(
+    <ProfileRelationsBoxWrapper>
+        <h2 className="smallTitle">
+          {props.title} ({props.items.length})
+        </h2>
+          <ul>
+            {/* {items.map((itemAtual) => {
+              return (
+                <li key={itemAtual}>
+                  <a href={`users/${itemAtual.login}`} key={itemAtual}>
+                    <img src={`https://github.com/${itemAtual}.png`} />
+                    <span>{itemAtual}</span>  
+                  </a>
+                </li>
+              )
+            })} */}
+          </ul>
+        </ProfileRelationsBoxWrapper>
+  )
+}
+
 export default function Home() {
   const usuario = 'danicaus'
   const [comunidades, setComunidades ] = React.useState([{
@@ -36,6 +58,18 @@ export default function Home() {
     'rafaballerini'
   ]
   
+  const [seguidores, setSeguidores] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch(`https://api.github.com/users/${usuario}/followers`)
+    .then((respostaServidor) => {
+      return respostaServidor.json();
+    })
+    .then((respostaCompleta) => {
+      setSeguidores(respostaCompleta)
+    })
+  }, [])
+
   return (
   <>
     <AlurakutMenu/>
@@ -125,6 +159,7 @@ export default function Home() {
             })}
           </ul>
         </ProfileRelationsBoxWrapper>
+        <ProfileRelationsBox title="Seguidores" items={seguidores}/>
       </div>
     </MainGrid>
   </>
