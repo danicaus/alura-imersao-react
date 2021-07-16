@@ -66,8 +66,8 @@ const Box = styled.div `
     border: 0;
     padding: 8px 12px;
     color: #FFFFFF;
-    boder-radius: 10000px;
-    bacjground-color: #6F92BB;
+    border-radius: 10000px;
+    background-color: #6F92BB;
   }
 
 `;
